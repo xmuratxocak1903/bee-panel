@@ -4,20 +4,34 @@
   <title>BEE Kontrol Paneli</title>
 </head>
 <body style="background:black; color:white; text-align:center; font-family:sans-serif; padding-top:100px;">
+
   <h1 style="font-size:32px;">🐝 BEE Kontrol Paneli</h1>
 
-  <button onclick="startAnalysis('MIND')" style="padding:20px 40px; font-size:20px; margin:20px; background:#ff6600; color:black; border:none; border-radius:12px;">MIND</button>
+  <!-- Soru input alanı -->
+  <input id="promptInput" placeholder="AQUILA’ya sor..." 
+         style="padding:10px; width:300px; border-radius:8px; margin-bottom:20px; font-size:16px;"><br><br>
 
-  <button onclick="startAnalysis('SOLAXY')" style="padding:20px 40px; font-size:20px; margin:20px; background:#00cc66; color:black; border:none; border-radius:12px;">SOLAXY</button>
+  <!-- Butonlar -->
+  <button onclick="startAnalysis('MIND')" 
+          style="padding:20px 40px; font-size:20px; margin:20px; background:#ff6600; color:black; border:none; border-radius:12px;">
+    MIND
+  </button>
+
+  <button onclick="startAnalysis('SOLAXY')" 
+          style="padding:20px 40px; font-size:20px; margin:20px; background:#00cc66; color:black; border:none; border-radius:12px;">
+    SOLAXY
+  </button>
 
   <p id="status" style="margin-top:40px; font-size:18px; color:gray;"></p>
 
   <script>
     function startAnalysis(token) {
+      const userInput = document.getElementById("promptInput").value;
+
       fetch("https://n8n.muratocak.net/webhook/run_analysis", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token })
+        body: JSON.stringify({ token: token, input: userInput })
       })
       .then(res => {
         document.getElementById("status").innerText = token + " analizi tetiklendi.";
@@ -27,5 +41,6 @@
       });
     }
   </script>
+
 </body>
 </html>
