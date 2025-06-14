@@ -14,7 +14,7 @@
 
   <script>
     function startAnalysis(token) {
-      fetch("https://app.muratocak.net/webhook/run_analysis", {
+      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token })
