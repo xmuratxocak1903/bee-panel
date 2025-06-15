@@ -1,23 +1,69 @@
-<input type="text" id="question" placeholder="Sorunuzu yazın" />
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BEE Kontrol Paneli</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      text-align: center;
+      font-family: sans-serif;
+      padding-top: 100px;
+    }
+    #question {
+      width: 400px;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
+      outline: none;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      margin: 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    #mindBtn { background: #ff6600; color: black; }
+    #solaxyBtn { background: #00cc66; color: black; }
+    #status {
+      margin-top: 40px;
+      font-size: 18px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐝 BEE Kontrol Paneli</h1>
+  <input type="text" id="question" placeholder="Sorunu buraya yaz...">
+  <br>
+  <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
+  <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
+  <p id="status"></p>
 
-<button onclick="startAnalysis('MIND')">MIND</button>
-<button onclick="startAnalysis('SOLAXY')">SOLAXY</button>
-
-<script>
-  function startAnalysis(token) {
-    const input = document.getElementById("question").value;
-    fetch("https://n8n.muratocak.net/webhook/run_analysis", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ token: token, input: input })
-    })
-    .then(res => {
-      document.getElementById("status").innerText = token + " analizi tetiklendi.";
-    })
-    .catch(err => {
-      document.getElementById("status").innerText = "Hata oluştu.";
-    });
-  }
-</script>
+  <script>
+    function startAnalysis(token) {
+      const input = document.getElementById("question").value;
+      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          token: token,
+          input: input
+        })
+      })
+      .then(res => {
+        document.getElementById("status").innerText = token + " analizi tetiklendi.";
+      })
+      .catch(err => {
+        document.getElementById("status").innerText = "Hata oluştu.";
+      });
+    }
+  </script>
+</body>
+</html>
