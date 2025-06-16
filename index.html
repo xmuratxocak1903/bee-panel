@@ -10,7 +10,7 @@
       font-family: sans-serif;
       padding-top: 100px;
     }
-    #question {
+    #question, #responseBox {
       width: 400px;
       padding: 12px;
       font-size: 18px;
@@ -18,6 +18,11 @@
       border: none;
       margin-bottom: 20px;
       outline: none;
+    }
+    #responseBox {
+      background-color: white;
+      color: black;
+      min-height: 60px;
     }
     button {
       padding: 20px 40px;
@@ -29,12 +34,6 @@
     }
     #mindBtn { background: #ff6600; color: black; }
     #solaxyBtn { background: #00cc66; color: black; }
-    #status {
-      margin-top: 60px;
-      font-size: 20px;
-      color: #cccccc;
-      min-height: 24px;
-    }
   </style>
 </head>
 <body>
@@ -43,13 +42,16 @@
   <br>
   <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
   <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
-  <p id="status"></p>
+  <br>
+  <div>
+    <input id="responseBox" readonly placeholder="Cevap burada görünecek...">
+  </div>
 
   <script>
     function startAnalysis(token) {
       const input = document.getElementById("question").value;
-      const status = document.getElementById("status");
-      status.innerText = "⏳ Bekleniyor...";
+      const responseBox = document.getElementById("responseBox");
+      responseBox.value = "⏳ Bekleniyor...";
 
       fetch("https://n8n.muratocak.net/webhook/run_analysis", {
         method: "POST",
@@ -60,4 +62,12 @@
       })
       .then(res => res.json())
       .then(data => {
-        status.inn
+        responseBox.value = data.message || "✅ Cevap geldi ama boş.";
+      })
+      .catch(err => {
+        responseBox.value = "❌ Hata: " + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
