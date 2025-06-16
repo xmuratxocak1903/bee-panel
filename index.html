@@ -3,12 +3,19 @@
 <head>
   <title>BEE Kontrol Paneli</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
     body {
       margin: 0;
-      padding: 0;
       background: black;
       color: white;
-      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
     .frame {
@@ -16,25 +23,23 @@
       border-top: 6px solid #00cc66;    /* Üst - Yeşil */
       border-right: 6px solid #ff6600;  /* Sağ - Turuncu */
       border-bottom: 6px solid #00cc66; /* Alt - Yeşil */
-      height: 100vh;
-      box-sizing: border-box;
-      padding: 50px;
+      padding: 40px;
+      border-radius: 12px;
     }
 
     .panel {
-      max-width: 600px;
-      text-align: left;
+      text-align: center;
     }
 
     h1 {
       color: #FFD700;
-      margin-bottom: 30px;
       font-size: 32px;
+      margin-bottom: 30px;
     }
 
     input#question,
     textarea#responseBox {
-      width: 100%;
+      width: 400px;
       height: 100px;
       padding: 12px;
       font-size: 18px;
@@ -42,10 +47,8 @@
       border: none;
       margin-bottom: 20px;
       outline: none;
-      box-sizing: border-box;
       background-color: white;
       color: black;
-      font-family: sans-serif;
     }
 
     textarea#responseBox {
@@ -55,11 +58,10 @@
     button {
       padding: 20px 40px;
       font-size: 18px;
-      margin-right: 20px;
+      margin: 10px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      font-family: sans-serif;
     }
 
     #mindBtn { background: #ff6600; color: black; }
@@ -69,38 +71,4 @@
 <body>
   <div class="frame">
     <div class="panel">
-      <h1>🐝 <span style="color: white;">BEE</span> Kontrol Paneli</h1>
-
-      <input type="text" id="question" placeholder="Sorunu buraya yaz..."><br>
-
-      <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
-      <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button><br>
-
-      <textarea id="responseBox" readonly placeholder="Cevap burada görünecek..."></textarea>
-    </div>
-  </div>
-
-  <script>
-    function startAnalysis(token) {
-      const input = document.getElementById("question").value;
-      const responseBox = document.getElementById("responseBox");
-      responseBox.value = "⏳ Bekleniyor...";
-
-      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ token, input })
-      })
-      .then(res => res.json())
-      .then(data => {
-        responseBox.value = data.message || "✅ Cevap geldi ama boş.";
-      })
-      .catch(err => {
-        responseBox.value = "❌ Hata: " + err.message;
-      });
-    }
-  </script>
-</body>
-</html>
+      <h1>
