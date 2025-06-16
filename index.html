@@ -42,4 +42,27 @@
   <br>
   <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
   <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
-  <p id="status"></p>
+  <p id="status"> </p>
+
+  <script>
+    function startAnalysis(token) {
+      const input = document.getElementById("question").value;
+      document.getElementById("status").innerText = "Bekleniyor...";
+      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token, input })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").innerText = data.message || "✅ Cevap geldi ama mesaj yok.";
+      })
+      .catch(err => {
+        document.getElementById("status").innerText = "❌ Sunucu hatası: " + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
