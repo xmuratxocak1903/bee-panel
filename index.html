@@ -43,31 +43,3 @@
   <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
   <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
   <p id="status"></p>
-
-  <script>
-    function startAnalysis(token) {
-      const input = document.getElementById("question").value;
-      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          token: token,
-          input: input
-        })
-      })
-      .then(res => {
-        if (res.ok) {
-          document.getElementById("status").innerText = token + " analizi tetiklendi.";
-        } else {
-          document.getElementById("status").innerText = "Sunucu cevabı başarısız.";
-        }
-      })
-      .catch(err => {
-        document.getElementById("status").innerText = "Hata oluştu.";
-      });
-    }
-  </script>
-</body>
-</html>
