@@ -22,7 +22,7 @@
     button {
       padding: 20px 40px;
       font-size: 20px;
-      margin: 20px;
+      margin: 20px 10px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
@@ -30,24 +30,27 @@
     #mindBtn { background: #ff6600; color: black; }
     #solaxyBtn { background: #00cc66; color: black; }
     #status {
-      margin-top: 40px;
-      font-size: 18px;
-      color: gray;
+      margin-top: 60px;
+      font-size: 20px;
+      color: #cccccc;
+      min-height: 24px;
     }
   </style>
 </head>
 <body>
-  <h1>🐝 BEE Kontrol Paneli</h1>
+  <h1>🐝 <span style="color: #FFD700">BEE</span> Kontrol Paneli</h1>
   <input type="text" id="question" placeholder="Sorunu buraya yaz...">
   <br>
   <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
   <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
-  <p id="status"> </p>
+  <p id="status"></p>
 
   <script>
     function startAnalysis(token) {
       const input = document.getElementById("question").value;
-      document.getElementById("status").innerText = "Bekleniyor...";
+      const status = document.getElementById("status");
+      status.innerText = "⏳ Bekleniyor...";
+
       fetch("https://n8n.muratocak.net/webhook/run_analysis", {
         method: "POST",
         headers: {
@@ -57,12 +60,4 @@
       })
       .then(res => res.json())
       .then(data => {
-        document.getElementById("status").innerText = data.message || "✅ Cevap geldi ama mesaj yok.";
-      })
-      .catch(err => {
-        document.getElementById("status").innerText = "❌ Sunucu hatası: " + err.message;
-      });
-    }
-  </script>
-</body>
-</html>
+        status.inn
