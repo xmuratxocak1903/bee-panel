@@ -10,7 +10,7 @@
       font-family: sans-serif;
       padding-top: 100px;
     }
-    #question, #responseBox {
+    #question {
       width: 400px;
       padding: 12px;
       font-size: 18px;
@@ -20,9 +20,16 @@
       outline: none;
     }
     #responseBox {
+      width: 400px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
       background-color: white;
       color: black;
-      min-height: 60px;
+      min-height: 100px;
+      resize: none;
     }
     button {
       padding: 20px 40px;
@@ -38,14 +45,13 @@
 </head>
 <body>
   <h1>🐝 <span style="color: #FFD700">BEE</span> Kontrol Paneli</h1>
-  <input type="text" id="question" placeholder="Sorunu buraya yaz...">
-  <br>
+
+  <input type="text" id="question" placeholder="Sorunu buraya yaz..."><br>
+
   <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
-  <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
-  <br>
-  <div>
-    <input id="responseBox" readonly placeholder="Cevap burada görünecek...">
-  </div>
+  <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button><br>
+
+  <textarea id="responseBox" readonly placeholder="Cevap burada görünecek..."></textarea>
 
   <script>
     function startAnalysis(token) {
