@@ -47,4 +47,70 @@
 
     input#question {
       background-color: white;
-      color: bl
+      color: black;
+    }
+
+    textarea#responseBox {
+      background-color: white;
+      color: black;
+      resize: none;
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      margin: 20px 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #mindBtn { background: #ff6600; color: black; }
+    #solaxyBtn { background: #00cc66; color: black; }
+
+    /* 🎯 Gömülme efekti burada */
+    button:hover {
+      transform: translateY(2px);
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="panel">
+      <h1>🐝 <span style="color: white;">BEE</span> Kontrol Paneli</h1>
+
+      <input type="text" id="question" placeholder="Sorunu buraya yaz..."><br>
+
+      <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
+      <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button><br>
+
+      <textarea id="responseBox" readonly placeholder="Cevap burada görünecek..."></textarea>
+    </div>
+  </div>
+
+  <script>
+    function startAnalysis(token) {
+      const input = document.getElementById("question").value;
+      const responseBox = document.getElementById("responseBox");
+      responseBox.value = "⏳ Bekleniyor...";
+
+      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token, input })
+      })
+      .then(res => res.json())
+      .then(data => {
+        responseBox.value = data.message || "✅ Cevap geldi ama boş.";
+      })
+      .catch(err => {
+        responseBox.value = "❌ Hata: " + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
