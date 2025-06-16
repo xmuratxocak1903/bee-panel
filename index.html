@@ -47,7 +47,7 @@
   <script>
     function startAnalysis(token) {
       const input = document.getElementById("question").value;
-      fetch("https://n8n.muratocak.net/webhook-test/80349692-02c3-4ad9-9752-5a0df85d15cb", {
+      fetch("https://n8n.muratocak.net/webhook-test/run_analysis", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -58,7 +58,11 @@
         })
       })
       .then(res => {
-        document.getElementById("status").innerText = token + " analizi tetiklendi.";
+        if (res.ok) {
+          document.getElementById("status").innerText = token + " analizi tetiklendi.";
+        } else {
+          document.getElementById("status").innerText = "Sunucu cevabı başarısız.";
+        }
       })
       .catch(err => {
         document.getElementById("status").innerText = "Hata oluştu.";
