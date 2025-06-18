@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BEE Kontrol Paneli</title>
+  <title>SOLAXY Kontrol Paneli</title>
   <style>
     body {
       margin: 0;
@@ -66,8 +66,10 @@
       transition: all 0.2s ease;
     }
 
-    #mindBtn { background: #ff6600; color: black; }
-    #solaxyBtn { background: #00cc66; color: black; }
+    #solaxyBtn {
+      background: #00cc66;
+      color: black;
+    }
 
     button:hover {
       transform: translateY(2px);
@@ -88,25 +90,22 @@
 <body>
   <div class="frame">
     <div class="panel">
-      <h1>🐝 <span style="color: white;">BEE</span> Kontrol Paneli</h1>
+      <h1>🐝 <span style="color: white;">SOLAXY</span> Kontrol Paneli</h1>
 
       <input type="text" id="question" placeholder="Sorunu buraya yaz..."><br>
 
-      <button id="mindBtn" onclick="startAnalysis('MIND')">MIND</button>
-      <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button><br>
+      <button id="solaxyBtn" onclick="startAnalysis()">SOLAXY</button><br>
 
       <textarea id="responseBox" readonly placeholder="Cevap burada görünecek..."></textarea>
     </div>
   </div>
 
   <div class="below-frame">
-    <span class="orange">MIND</span>
-    <span class="green"> OF </span>
-    <span class="orange">SO</span><span class="green">LAXY</span>
+    <span class="green">SOLAXY AI AGENT</span>
   </div>
 
   <script>
-    function startAnalysis(token) {
+    function startAnalysis() {
       const input = document.getElementById("question").value;
       const responseBox = document.getElementById("responseBox");
       responseBox.value = "⏳ Bekleniyor...";
@@ -116,7 +115,7 @@
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ token, input })
+        body: JSON.stringify({ token: "SOLAXY", input })
       })
       .then(res => res.json())
       .then(data => {
