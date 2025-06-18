@@ -12,11 +12,11 @@
     }
 
     .frame {
-      border-left: 8px solid #ff6600;   /* Sol - Turuncu */
-      border-top: 8px solid #00cc66;    /* Üst - Yeşil */
-      border-right: 8px solid #ff6600;  /* Sağ - Turuncu */
-      border-bottom: 6px solid #00cc66; /* Alt - Yeşil */
-      height: calc(100vh - 60px);       /* ❗ Alt yazı için yer bırakıldı */
+      border-left: 8px solid #ff6600;
+      border-top: 8px solid #00cc66;
+      border-right: 8px solid #ff6600;
+      border-bottom: 6px solid #00cc66;
+      height: calc(100vh - 60px);
       box-sizing: border-box;
       display: flex;
       justify-content: center;
@@ -99,7 +99,6 @@
     </div>
   </div>
 
-  <!-- ✅ Alt yazı artık görünür -->
   <div class="below-frame">
     <span class="orange">MIND</span>
     <span class="green"> OF </span>
@@ -112,7 +111,7 @@
       const responseBox = document.getElementById("responseBox");
       responseBox.value = "⏳ Bekleniyor...";
 
-      fetch("https://n8n.muratocak.net/webhook/run_analysis");
+      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
