@@ -111,20 +111,20 @@
       const responseBox = document.getElementById("responseBox");
       responseBox.value = "⏳ Bekleniyor...";
 
-     fetch("https://n8n.muratocak.net/webhook/run_analysis", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ token, input })
-})
-.then(res => res.json())
-.then(data => {
-  responseBox.value = data.message || "✅ Cevap geldi ama boş.";
-})
-.catch(err => {
-  responseBox.value = "❌ Hata: " + err.message;
-});
+      fetch("https://n8n.muratocak.net/webhook/run_analysis", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token, input })
+      })
+      .then(res => res.json())
+      .then(data => {
+        responseBox.value = data.message || "✅ Cevap geldi ama boş.";
+      })
+      .catch(err => {
+        responseBox.value = "❌ Hata: " + err.message;
+      });
     }
   </script>
 </body>
