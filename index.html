@@ -67,7 +67,7 @@
     }
 
     #solaxyBtn { background: #00cc66; color: black; }
-    #micBtn { background: #5555ff; color: white; }
+    #micBtn    { background: #ff6600; color: black; }
 
     button:hover {
       transform: translateY(2px);
@@ -106,7 +106,6 @@
     const responseBox = document.getElementById("responseBox");
     const inputBox = document.getElementById("question");
 
-    // Sesli giriş
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = 'tr-TR';
     recognition.continuous = false;
