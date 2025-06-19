@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🐝 SOLAXY Kontrol Paneli</title>
+  <title>SOLAXY Kontrol Paneli</title>
   <style>
     body {
       margin: 0;
@@ -59,7 +59,7 @@
     button {
       padding: 20px 40px;
       font-size: 20px;
-      margin: 10px;
+      margin: 20px 10px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
@@ -67,7 +67,7 @@
     }
 
     #solaxyBtn { background: #00cc66; color: black; }
-    #micBtn    { background: #ff6600; color: black; }
+    #voiceBtn { background: #ff6600; color: black; }
 
     button:hover {
       transform: translateY(2px);
@@ -81,7 +81,8 @@
       margin-top: 10px;
     }
 
-    .green { color: #00cc66; }
+    .orange { color: #ff6600; }
+    .green  { color: #00cc66; }
   </style>
 </head>
 <body>
@@ -92,42 +93,20 @@
       <input type="text" id="question" placeholder="Sorunu buraya yaz..."><br>
 
       <button id="solaxyBtn" onclick="startAnalysis('SOLAXY')">SOLAXY</button>
-      <button id="micBtn" onclick="startListening()">🎤 Konuş</button><br>
+      <button id="voiceBtn" onclick="startVoiceRecognition()">🎙 Konuş</button><br>
 
       <textarea id="responseBox" readonly placeholder="Cevap burada görünecek..."></textarea>
     </div>
   </div>
 
   <div class="below-frame">
-    <span class="green">SOLAXY AI</span>
+    <span class="orange">SOLAXY</span>
   </div>
 
   <script>
-    const responseBox = document.getElementById("responseBox");
-    const inputBox = document.getElementById("question");
-
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = 'tr-TR';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    function startListening() {
-      recognition.start();
-      responseBox.value = "🎤 Dinleniyor...";
-    }
-
-    recognition.onresult = function (event) {
-      const transcript = event.results[0][0].transcript;
-      inputBox.value = transcript;
-      startAnalysis("SOLAXY");
-    };
-
-    recognition.onerror = function (event) {
-      responseBox.value = "❌ Ses tanıma hatası: " + event.error;
-    };
-
     function startAnalysis(token) {
-      const input = inputBox.value;
+      const input = document.getElementById("question").value;
+      const responseBox = document.getElementById("responseBox");
       responseBox.value = "⏳ Bekleniyor...";
 
       fetch("https://n8n.muratocak.net/webhook/run_analysis", {
@@ -144,6 +123,25 @@
       .catch(err => {
         responseBox.value = "❌ Hata: " + err.message;
       });
+    }
+
+    function startVoiceRecognition() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'tr-TR';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("question").value = transcript;
+        startAnalysis('SOLAXY');
+      };
+
+      recognition.onerror = function(event) {
+        document.getElementById("responseBox").value = "❌ Mikrofon hatası: " + event.error;
+      };
+
+      recognition.start();
     }
   </script>
 </body>
