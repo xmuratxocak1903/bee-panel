@@ -109,7 +109,8 @@
       const responseBox = document.getElementById("responseBox");
       responseBox.value = "⏳ Bekleniyor...";
 
-     fetch("https://n8n.muratocak.net/webhook/solaxy.audio", {
+    fetch("https://n8n.muratocak.net/webhook/solaxy.audio", { ... })
+
         method: "POST",
         headers: {
           "Content-Type": "application/json"
