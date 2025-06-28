@@ -108,19 +108,23 @@
       const input = document.getElementById("question").value;
       const responseBox = document.getElementById("responseBox");
       responseBox.value = "⏳ Bekleniyor...";
-    fetch("https://n8n.muratocak.net/webhook/alerion/analyze", {
+
+      fetch("https://n8n.muratocak.net/webhook/alerion/analyze", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-       body: JSON.stringify({
-       coin: input,
-       trigger: "analyze",
-       origin: "AQUILA"
+        body: JSON.stringify({
+          token: token,
+          input: input,
+          coin: input,
+          trigger: "analyze",
+          origin: "AQUILA"
+        })
       })
-      .then(res => res.json())
+      .then(res => res.text())
       .then(data => {
-        responseBox.value = data.message || "✅ Cevap geldi ama boş.";
+        responseBox.value = "✅ Gönderildi: " + data;
       })
       .catch(err => {
         responseBox.value = "❌ Hata: " + err.message;
