@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kontrol Paneli</title>
+  <title>AI Kontrol Paneli</title>
   <style>
     body {
       margin: 0;
@@ -114,8 +114,8 @@
         return;
       }
 
-      fetch("https://n8n.muratocak.net/webhook/bee-panel-6rx3.vercel.app/", {
-        method: "POST", // 🔥 Burası POST
+      fetch("https://n8n.muratocak.net/webhook/alerion/analyze", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -141,4 +141,18 @@
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
 
-      recognition.onresult = function(e
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("question").value = transcript;
+        startAnalysis();
+      };
+
+      recognition.onerror = function(event) {
+        document.getElementById("responseBox").value = "❌ Mikrofon hatası: " + event.error;
+      };
+
+      recognition.start();
+    }
+  </script>
+</body>
+</html>
