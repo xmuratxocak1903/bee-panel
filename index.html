@@ -113,7 +113,10 @@
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ token, input })
+       body: JSON.stringify({
+       coin: input,
+       trigger: "analyze",
+       origin: "AQUILA"
       })
       .then(res => res.json())
       .then(data => {
