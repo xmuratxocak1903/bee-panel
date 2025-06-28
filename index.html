@@ -115,7 +115,7 @@
       }
 
       fetch("https://n8n.muratocak.net/webhook/alerion/analyze", {
-        method: "POST",
+        method: "POST", // 🔥 Burası POST
         headers: {
           "Content-Type": "application/json"
         },
@@ -141,18 +141,4 @@
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
 
-      recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById("question").value = transcript;
-        startAnalysis();
-      };
-
-      recognition.onerror = function(event) {
-        document.getElementById("responseBox").value = "❌ Mikrofon hatası: " + event.error;
-      };
-
-      recognition.start();
-    }
-  </script>
-</body>
-</html>
+      recognition.onresult = function(e
